@@ -1,0 +1,7 @@
+.idea/*.xml
+.idea/inspectionProfiles/*.xml
+*.iml
+__pycache__
+venv
+photos
+
