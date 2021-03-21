@@ -1,7 +1,5 @@
 import tensorflow as tf, sys
 
- #image_path = 'animals/my/dog.jpg'
-
 def classify_animal_image(image_path):
     # Read in the image_data
     image_data = tf.io.gfile.GFile(image_path, 'rb').read()

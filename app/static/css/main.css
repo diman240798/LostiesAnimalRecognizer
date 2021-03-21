@@ -1,0 +1,290 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none; /*убираем подчеркивание текста ссылок*/
+}
+
+body{
+    background-color: green;
+}
+
+h1{
+    color: white;
+    margin-top: 250px;
+    margin-left: 250px;
+}
+
+.cont form{
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    width: 500px;
+    height 400px;
+    border: black solid 1px;
+}
+
+.cont form a: hover{
+    background: black;
+    color: red;
+}
+
+.left-btn, .right-btn{
+    width: 100px;
+    height: 50px;
+    font-size: 16px;
+}
+
+.left-btn{
+    margin-right: 280px;
+}
+
+.cont form img{
+    width: 500px;
+    height: 400px;
+}
+
+header ul {
+  position: relative;
+  list-style: none; /*убираем маркеры списка*/
+  margin: 0; /*убираем отступы*/
+  padding-left: 0; /*убираем отступы*/
+  padding-top:25px; /*делаем отступ сверху*/
+  width: 100%;
+}
+
+header{
+    padding-top: 0;
+    width:100%;
+    background:black;
+    height:100px;
+    position: fixed;
+    display:inline-block;
+    z-index: 999;
+}
+
+.home_animal{
+    width: 100%;
+    display:inline-block;
+}
+
+.home_animal .con1, .home_animal .con2{
+    padding-bottom: 30px;
+    display: block;
+    padding-left:40px;
+    padding-right:40px;
+}
+
+h3{
+   padding-bottom: 10px;
+   text-align:center;
+}
+
+.cont{
+    margin-top: 100px;
+    width:100%;
+    display:inline-block;
+}
+
+header ul li a {
+  background:#30A8E6; /*добавляем фон к пункту меню*/
+  color:#fff; /*меняем цвет ссылок*/
+  padding:10px; /*добавляем отступ*/
+  font-family: arial; /*меняем шрифт*/
+  border-radius:4px; /*добавляем скругление*/
+  -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
+  -o-transition: all 0.3s 0.01s ease;
+  -webkit-transition: all 0.3s 0.01s ease;
+  position: relative;
+  width:100%;
+  text-align: center;
+}
+
+header ul li a:hover {
+  background:#1C85BB;/*добавляем эффект при наведении*/
+}
+
+header ul li {
+  display: flex;
+  padding-top: 10px;
+  float:left; /*Размещаем список горизонтально для реализации меню*/
+  padding-left: 130px; /*Добавляем отступ у пунктов меню*/
+  width: 170px;
+}
+
+/* Стили слайдера */
+
+li img {
+  display: block;
+  margin: 0 auto;
+  width: 100%; !important;
+}
+
+
+.sim-slider {
+  top: 5%;
+  left: 35%;
+  height: 450px;
+  width: 320px;
+  margin: 200px auto;
+  padding: 30px 50px;
+  align: center;
+  border: 1px solid #ccd;
+  background-color: white;
+  display:inline-block;
+}
+
+/* General styles */
+.sim-slider {
+  position: relative;
+}
+
+.sim-slider-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  position: relative;
+}
+
+.sim-slider-element {
+  height: 450px;
+  width: 100%;
+  transition: opacity 1s ease-in;
+  opacity: 0;
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  display: block;
+}
+
+/* Navigation item styles */
+div.sim-slider-arrow-left,
+div.sim-slider-arrow-right {
+  width: 22px;
+  height: 40px;
+  position: absolute;
+  cursor: pointer;
+  opacity: 0.6;
+  z-index: 4;
+}
+
+div.sim-slider-arrow-left {
+  left: 10px;
+  top: 40%;
+  display: block;
+  background: url("http://pvbk.spb.ru/inc/slider/sim-files/sim-arrow-left.png") no-repeat;
+}
+
+div.sim-slider-arrow-right {
+  right: 10px;
+  top: 40%;
+  display: block;
+  background: url("http://pvbk.spb.ru/inc/slider/sim-files/sim-arrow-right.png") no-repeat;
+}
+
+div.sim-slider-arrow-left:hover {
+  opacity: 1.0;
+}
+
+div.sim-slider-arrow-right:hover {
+  opacity: 1.0;
+}
+
+div.sim-slider-dots {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  text-align: center;
+}
+
+span.sim-dot {
+  width: 10px;
+  height: 10px;
+  margin: 5px 7px;
+  padding: 0;
+  display: inline-block;
+  background-color: #BBB;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* footer */
+footer{
+    display: inline-block;
+    background: black;
+    height: 130px;
+    width:100%;
+    color: white;
+} /*фон подвала */
+        .social-icons ul{
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+        .social-icons ul li a span {
+        color: #000;
+        width: 34px;
+        background: #fff;
+        height: 34px;
+        text-align: center;
+        line-height: 34px;
+        border-radius: 20px;
+        font-size: 13px;
+        margin: 0px 2px;
+        border-radius: 20px;
+        font-size: 14px;
+        margin: 0px 2px;
+        transition: 0.5s all;
+        -webkit-transition: 0.5s all;
+        transition: 0.5s all;
+        -moz-transition: 0.5s all;
+        }
+        .social-icons ul li a span:hover{color:#0ccbf1;}
+        .copy-bottom-txt p{font-size:18px;
+        color:#fff;
+        }
+        .social-icons ul li:nth-child(2){
+            margin: 0 10px;
+        }
+        .copy-bottom-txt p a {
+        font-size: 18px;
+        color:#000;
+        letter-spacing: 1px;
+        transition: .4s;
+        }
+        .copy-bottom-txt p a:hover {
+        color: #000;
+        text-decoration: underline;
+        padding-top: 4px;
+        font-weight: 700;
+        }
+
+.copy-bottom-txt span {
+    margin-left: 500px;
+}
+
+.copy-bottom-txt{
+    padding-top: 30px;
+}
+
+.social-icons{
+    padding-top: 30px;
+}
+
+.social-icons ul li{
+    padding-right:30px;
+}
+
+.container_animal{
+    width: 100%;
+    margin-top: 150px;
+    display:inline-block;
+}
+.container_animal p{
+    position: absolute;
+    left: 10%;
+    right: 10%;
+}
