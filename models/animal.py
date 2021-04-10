@@ -1,14 +1,9 @@
-from app import db
-from flask_serialize import FlaskSerialize
-
-import json
-
+from app import db, ma
 
 TYPE_DOG = 'dog'
 TYPE_CAT = 'cat'
 TYPE_OTHER = 'other'
 
-fs_mixin = FlaskSerialize(db)
 
 class Animal(db.Model):
     __tablename__ = 'photo_animals'
@@ -18,13 +13,7 @@ class Animal(db.Model):
     type_animal = db.Column(db.String(10), nullable=False)
 
 
-
-class AnimalRequest():
-    def __init__(self, photo = [], count_liked = 0, count_unliked = 0, type_animal = TYPE_OTHER):
-        self.photo = photo
-        self.count_liked = count_liked
-        self.count_unliked = count_unliked
-        self.type_animal = type_animal
-
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__)
+class AnimalSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Animal
+        load_instance = True

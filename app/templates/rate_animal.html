@@ -27,7 +27,6 @@
             let image = document.getElementById("photos_animals");
             for (let i = 0; i < data.length; i++) {
                 name = data[i].split('/')[3];
-                name = name.split('.')[0]
                 photos_animals.push("<img src='"+ data[i] + "' /> " +
                 "<input type='hidden' name='img_animal' value='" + name + "' />");
             }

@@ -6,21 +6,24 @@
 
 
 {% block body %}
-    <style>
-        footer{
-            margin-top: 600px;
-        }
-
-        .load_img{
-            padding-top: 120px;
-            display: inline-block;
-        }
-    </style>
-
-    <div class="load_img">
+    <div class="search" >
+    <ul>
+        <li>
+            <h1>Поиск животных онлайн</h1></li>
+        <h2><li> Просто загрузи своё животное с помощью формы ниже</h2></li>
+        <li class="actions">
+        <!--<li><a href="#" class="button pecial icon fas-download">Send</a></li>-->
         <form method="POST" enctype="multipart/form-data">
             <input type="file" name="file">
             <input type="submit" value="Загрузить">
-        </form>
+        </form></li>
+
+
+
+        </ul>
+    <div class="image phone">
+        <div class="inner"><img src="{{ url_for('static', filename='photos/others/photo.jpg')}}" alt="" >
+        </div>
     </div>
+</div>
 {% endblock %}

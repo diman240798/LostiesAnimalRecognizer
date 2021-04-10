@@ -17,13 +17,18 @@ import json
 from constants import *
 
 
-@app.route('/get_type', methods=['POST'])
+@app.route('/get_type', methods=['GET', 'POST'])
 def get_type_animal():
+    if request.method == 'GET':
+        return render_template("get_type_animal.html")
+    return get_type_animal_string()
+
+
+def get_type_animal_string():
     try:
         file = request.files['file']
         if file and allowed_file(file.filename):
-            file_name = secure_filename(file.filename)
-            file_name = str(uuid.uuid1()) + "_" + str(time.time()) + "." + file_name.split('.')[1]
+            file_name = str(uuid.uuid1()) + "_" + str(time.time()) + ".png"
             file.save(TEMP_PATH + file_name)  # сохраняем файл
 
             classified = classify_animal_image(TEMP_PATH + file_name)
@@ -58,57 +63,71 @@ def getPhoto(animal):
     in_file.close()
     return data
 
+def get_rand_animal_from_list(animals, session):
+    rand = random.randrange(0, animals.count())
+    animal = animals[rand]
+    animal_schema = AnimalSchema()
+    response = animal_schema.dump(animal)
+    data = getPhoto(animal)
+    response['name_photo'] = list(data)
+    return response
+
 
 @app.route('/get_rand_animal', methods=['GET'])
 def get_rand_animal():
     session = db.session
     animals = session.query(Animal)
-    rand = random.randrange(0, animals.count())
-    animal = animals[rand]
+    response = get_rand_animal_from_list(animals, session)
     session.close()
-    response = AnimalRequest(getPhoto(animal), animal.count_liked, animal.count_unliked, animal.type_animal)
-    return response.toJSON()
+    return jsonify(response)
 
 
-@app.route('/get_rand_cat', methods=['POST'])
+@app.route('/get_rand_cat', methods=['GET'])
 def get_rand_cat():
     session = db.session
-    animals = session.query(Animal).filter_by(type_animal = TYPE_CAT)
-    rand = random.randrange(0, animals.count())
-    animal = animals[rand]
+    animals = session.query(Animal).filter(Animal.type_animal == TYPE_CAT)
+    response = get_rand_animal_from_list(animals, session)
     session.close()
-    return animal
+    return response
 
 
-@app.route('/get_rand_dog', methods=['POST'])
+@app.route('/get_rand_dog', methods=['GET'])
 def get_rand_dog():
     session = db.session
-    animals = session.query(Animal).filter_by(type_animal = TYPE_DOG)
-    rand = random.randrange(0, animals.count())
-    animal = animals[rand]
+    animals = session.query(Animal).filter(Animal.type_animal == TYPE_DOG)
+    response = get_rand_animal_from_list(animals, session)
     session.close()
-    return animal
+    return response
 
 
-@app.route('/rate_animals', methods=['POST'])
+@app.route('/rate_animals', methods=['GET', 'POST'])
 def rate_animals():
+    if (request.method == 'POST'):
+        rate_animal()
+    return render_template("rate_animal.html", data=json.dumps(full_path_photos))
+
+
+@app.route('/rate_animal', methods=['POST'])
+def rate_animal():
     name_photo = request.form.get('img_animal')  # запрос к данным формы
     like = request.form.get('like')
     session = db.session
     if like is not None:
         animal: Animal = session.query(Animal).get(name_photo)
-        animal.count_liked += 1
-        session.add(animal)
-        session.commit()
+        print(animal)
+        if animal != None:
+            animal.count_liked += 1
+            session.add(animal)
+            session.commit()
     else:
         animal: Animal = session.query(Animal).get(name_photo)
-        animal.count_unliked += 1
-        session.add(animal)
-        session.commit()
+        if animal != None:
+            animal.count_unliked += 1
+            session.add(animal)
+            session.commit()
     session.close()
-    # return render_template("rate_animal.html", data=json.dumps(full_path_photos))
 
 
-# @app.route('/about_animals', methods=['GET'])
-# def about_animal():
-#     return render_template("about_animals.html", data=json.dumps(full_path_photos))
+@app.route('/', methods=['GET'])
+def about_animal():
+    return render_template("about_animals.html", data=json.dumps(full_path_photos))
