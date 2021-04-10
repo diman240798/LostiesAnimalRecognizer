@@ -1,5 +1,5 @@
-.idea/*.xml
-.idea/inspectionProfiles/*.xml
+.idea
+!.idea/runConfigurations
 *.iml
 __pycache__
 venv

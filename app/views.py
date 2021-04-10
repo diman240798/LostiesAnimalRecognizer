@@ -7,7 +7,6 @@ from flask import render_template, url_for, request, jsonify, flash, make_respon
 from werkzeug.utils import secure_filename
 from app import full_path_photos
 
-
 from models.animal import *
 from app import app, db, ALLOWED_EXTENSIONS
 
@@ -18,12 +17,6 @@ from constants import *
 
 
 @app.route('/get_type', methods=['GET', 'POST'])
-def get_type_animal():
-    if request.method == 'GET':
-        return render_template("get_type_animal.html")
-    return get_type_animal_string()
-
-
 def get_type_animal_string():
     try:
         file = request.files['file']
@@ -51,17 +44,13 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-# @app.route('/', methods=['GET'])
-# def home_page():
-#     return render_template("index.html")
-
-
 def getPhoto(animal):
     imagePath = IMAGES_DIR + animal.type_animal + "/" + animal.name_photo
     in_file = open(imagePath, "rb")  # opening for [r]eading as [b]inary
     data = in_file.read()  # if you only wanted to read 512 bytes, do .read(512)
     in_file.close()
     return data
+
 
 def get_rand_animal_from_list(animals, session):
     rand = random.randrange(0, animals.count())
@@ -100,13 +89,6 @@ def get_rand_dog():
     return response
 
 
-@app.route('/rate_animals', methods=['GET', 'POST'])
-def rate_animals():
-    if (request.method == 'POST'):
-        rate_animal()
-    return render_template("rate_animal.html", data=json.dumps(full_path_photos))
-
-
 @app.route('/rate_animal', methods=['POST'])
 def rate_animal():
     name_photo = request.form.get('img_animal')  # запрос к данным формы
@@ -126,8 +108,3 @@ def rate_animal():
             session.add(animal)
             session.commit()
     session.close()
-
-
-@app.route('/', methods=['GET'])
-def about_animal():
-    return render_template("about_animals.html", data=json.dumps(full_path_photos))
