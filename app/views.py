@@ -58,7 +58,7 @@ def get_rand_animal_from_list(animals, session):
     animal_schema = AnimalSchema()
     response = animal_schema.dump(animal)
     data = getPhoto(animal)
-    response['name_photo'] = list(data)
+    response['photo'] = list(data)
     return response
 
 
@@ -91,20 +91,17 @@ def get_rand_dog():
 
 @app.route('/rate_animal', methods=['POST'])
 def rate_animal():
-    name_photo = request.form.get('img_animal')  # запрос к данным формы
-    like = request.form.get('like')
+    name_photo = request.values['name_photo']  # запрос к данным формы
+    like = request.values['liked']
     session = db.session
-    if like is not None:
-        animal: Animal = session.query(Animal).get(name_photo)
-        print(animal)
-        if animal != None:
+    animal: Animal = session.query(Animal).get(name_photo)
+    if animal is not None:
+        if like is not None:
             animal.count_liked += 1
-            session.add(animal)
-            session.commit()
-    else:
-        animal: Animal = session.query(Animal).get(name_photo)
-        if animal != None:
+        else:
             animal.count_unliked += 1
-            session.add(animal)
-            session.commit()
-    session.close()
+        session.add(animal)
+        session.commit()
+        session.close()
+        return "ok"
+    return "animal not found"
